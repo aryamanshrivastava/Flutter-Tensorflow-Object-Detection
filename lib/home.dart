@@ -38,26 +38,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow,
+      backgroundColor: Colors.black,
       body: Column(
         children: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                initCamera();
-              },
-              child: SizedBox(
-                  height: 270,
-                  width: 360,
+          ElevatedButton(
+            onPressed: () {
+              initCamera();
+            },
+            child: Center(
+              child: Container(
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  width: MediaQuery.of(context).size.width,
                   child: imageCamera != null
                       ? AspectRatio(
                           aspectRatio: cameraController.value.aspectRatio,
                           child: CameraPreview(cameraController),
                         )
                       : Icon(Icons.photo_camera_front,
-                          color: Colors.blueAccent, size: 40)),
+                          color: Colors.black, size: 40)),
             ),
-          )
+          ),
         ],
       ),
     );

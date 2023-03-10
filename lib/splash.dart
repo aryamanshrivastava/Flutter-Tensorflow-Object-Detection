@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return Timer(Duration(seconds: 12), onDoneLoading);
+    return Timer(Duration(seconds: 5), onDoneLoading);
   }
 
   onDoneLoading() async {
@@ -35,12 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
-          // Image.asset(
-          //   'assets/back.jpeg',
-          //   fit: BoxFit.cover,
-          //   height: double.infinity,
-          //   width: double.infinity,
-          // ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
