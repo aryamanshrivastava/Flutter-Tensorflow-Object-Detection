@@ -2,7 +2,6 @@
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:object_detection/main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,29 +9,37 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
-  CameraImage? imageCamera;
   late CameraController cameraController;
-  bool isworking = false;
+  CameraImage? imageCamera;
+  bool isWorking = false;
   String result = "";
 
-  initCamera() {
-    cameraController = CameraController(cameras![0], ResolutionPreset.medium);
-    cameraController.initialize().then((value) {
-      if (!mounted) {
-        return;
+  Future<void> initCamera() async {
+    final cameras = await availableCameras();
+    final firstCamera = cameras.first;
+
+    cameraController = CameraController(firstCamera, ResolutionPreset.medium);
+    await cameraController.initialize();
+    cameraController.startImageStream((imagesFromStream) {
+      if (!isWorking) {
+        isWorking = true;
+        imageCamera = imagesFromStream;
       }
-      setState(() {
-        cameraController.startImageStream((imagesFromStream) => {
-              if (!isworking)
-                {
-                  isworking = true,
-                  imageCamera = imagesFromStream,
-                }
-            });
-      });
     });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initCamera();
+  }
+
+  @override
+  void dispose() {
+    cameraController.stopImageStream();
+    super.dispose();
   }
 
   @override
@@ -41,22 +48,21 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              initCamera();
-            },
-            child: Center(
-              child: Container(
-                  color: Colors.white,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width,
-                  child: imageCamera != null
-                      ? AspectRatio(
-                          aspectRatio: cameraController.value.aspectRatio,
-                          child: CameraPreview(cameraController),
-                        )
-                      : Icon(Icons.photo_camera_front,
-                          color: Colors.black, size: 40)),
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: imageCamera != null
+                  ? AspectRatio(
+                      aspectRatio: cameraController.value.aspectRatio,
+                      child: CameraPreview(cameraController),
+                    )
+                  : Center(
+                      child: Icon(
+                        Icons.photo_camera_front,
+                        color: Colors.black,
+                        size: 40,
+                      ),
+                    ),
             ),
           ),
         ],
