@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:object_detection/home.dart';
+import 'package:object_detection/start.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -20,12 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return Timer(Duration(seconds: 5), onDoneLoading);
+    return Timer(const Duration(seconds: 5), onDoneLoading);
   }
 
   onDoneLoading() async {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => const Start()),
     );
   }
 
@@ -38,10 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: const[
                 CircularProgressIndicator(),
                 SizedBox(height: 10.0),
-                Text("Loading",style: TextStyle(color: Colors.white),),
+                Text(
+                  "Loading",
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ),

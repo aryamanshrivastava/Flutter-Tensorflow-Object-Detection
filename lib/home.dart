@@ -3,6 +3,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:object_detection/main.dart';
+import 'package:object_detection/start.dart';
 import 'package:tflite/tflite.dart';
 
 class HomePage extends StatefulWidget {
@@ -105,18 +106,46 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.05,
           ),
-          Center(
-            child: Text(
-              result,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
+          Expanded(
+            child: Center(
+              child: Text(
+                result,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.4,
+                          vertical: MediaQuery.of(context).size.height * 0.02)),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const Start()),
+                    );
+                  },
+                  child: const Text('CLOSE',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 30))),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          )
         ],
       ),
     );
