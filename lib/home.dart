@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       imageMean: 127.5,
       imageStd: 127.5,
       rotation: 90,
-      numResults: 2,
+      numResults: 1,
       threshold: 0.1,
       asynch: true,
     );
@@ -85,6 +85,8 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
             onPressed: initCamera,
             child: Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: imageCamera != null
                   ? AspectRatio(
@@ -92,8 +94,8 @@ class _HomePageState extends State<HomePage> {
                       child: CameraPreview(cameraController),
                     )
                   : SizedBox(
-                      height: 270,
-                      width: 360,
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: MediaQuery.of(context).size.width,
                       child: Icon(
                         Icons.photo_camera_front,
                         color: Colors.black,
@@ -102,18 +104,16 @@ class _HomePageState extends State<HomePage> {
                     ),
             ),
           ),
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
-                child: Text(
-                  result,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    backgroundColor: Colors.black87,
-                    fontSize: 30,
-                    color: Colors.white,
-                  ),
-                ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
+          ),
+          Center(
+            child: Text(
+              result,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
               ),
             ),
           ),
